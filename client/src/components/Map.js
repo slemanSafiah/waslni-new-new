@@ -8,7 +8,6 @@ import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import * as turf from "@turf/turf";
 import io from "socket.io-client";
 import {feature} from "@turf/turf";
-import Voice from "./Voice";
 mapboxgl.accessToken =
   "pk.eyJ1IjoidGFtYXJhamFtbW91bCIsImEiOiJja2NxMG1kNm8xMGtzMnNsbWExbGtpbm8zIn0.bgQ23ChS-u88zfS7dm6Fbw";
 
@@ -20,7 +19,6 @@ const Map = () => {
     lat: "",
   });
   const [dest, setDest] = useState({lat: "", long: ""});
-  const [destvoice, setDestvoice] = useState("");
   const authContext = useContext(AuthContext);
   const waslniContext = useContext(WaslniContext);
   const mapContainerRef = useRef(null);
@@ -67,37 +65,10 @@ const Map = () => {
       accessToken: mapboxgl.accessToken,
       mapboxgl: mapboxgl,
       language: "Ar",
-
       marker: true,
     });
     map.addControl(geocoder, "top-left");
-    if (destvoice) {
-      axios
-        .get(
-          `https://api.mapbox.com/geocoding/v5/mapbox.places/${destvoice}.json?access_token=${mapboxgl.accessToken}`
-        )
-        .then((res) => {
-          console.log("rrrrr", res.data.features[0].center);
-          new mapboxgl.Marker()
-            .setLngLat([
-              res.data.features[0].center[0],
-              res.data.features[0].center[1],
-            ])
-            .addTo(map);
-          setDest({
-            let: res.data.features[0].center[0],
-            long: res.data.features[0].center[1],
-          });
-          map.flyTo({
-            center: [
-              res.data.features[0].center[0],
-              res.data.features[0].center[1],
-            ],
-            essential: true,
-          });
-        })
-        .catch((err) => {});
-    }
+
     geocoder.on("result", function (ev) {
       console.log(ev.result.geometry);
       setDest({
@@ -137,6 +108,7 @@ const Map = () => {
         console.log(driver[0]);
         localStorage.setItem("driver", driver[0].number);
         authContext.setMap(1);
+        console.log("mmmm", authContext.map);
         console.log(userLocation, "kljlkj", dest);
         const data = {
           source_lat: userLocation.lat,
@@ -153,7 +125,7 @@ const Map = () => {
         if (authContext.isdriver) {
           const res = await axios({
             method: "post",
-            url: "https://waslni-api.herokuapp.com/driver/update_location",
+            url: "/driver/update_location",
             data: data,
             headers: {
               Authorization: `Bearer ${token}`,
@@ -167,7 +139,7 @@ const Map = () => {
   return (
     <div className="container d-flex justify-content-center">
       <h1 className="text-secondary mb-5 maptext"> Order a car </h1>{" "}
-      <div className="map-container" ref={mapContainerRef} /> <Voice />
+      <div className="map-container" ref={mapContainerRef} />
     </div>
   );
 };

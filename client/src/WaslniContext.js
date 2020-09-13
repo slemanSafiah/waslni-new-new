@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from "react";
 import axios from "axios";
 import {AuthContext} from "./AuthContext";
 import io from "socket.io-client";
+import {ToastProvider, useToasts} from "react-toast-notifications";
 
 export const WaslniContext = React.createContext();
 
@@ -11,10 +12,56 @@ export function WaslniProvider(Props) {
   const authContext = useContext(AuthContext);
   const token = authContext.auth;
   const [chat, setChat] = useState([]);
+  const [trip, setTrip] = useState([]);
 
+  const {addToast} = useToasts();
+  useEffect(() => {
+    async function feachdata() {
+      const data = {number: localStorage.getItem("number")};
+      if (authContext.isdriver) {
+        const res = await axios({
+          method: "post",
+          url: `http://localhost:5000/trip/get_trips_by_driver`,
+          data,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((res) => {
+            console.log("rew", res);
+            res.data.data.map((tri) => {
+              trip.push(tri);
+            });
+          })
+          .catch((err) => {
+            addToast("error try again", {appearance: "error"});
+          });
+      } else {
+        const res = await axios({
+          method: "post",
+          url: `http://localhost:5000/trip/get_trips_by_user`,
+          data,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((res) => {
+            console.log(res);
+            res.data.data.map((tri) => {
+              trip.push(tri);
+            });
+          })
+          .catch((err) => {
+            addToast("error try again", {appearance: "error"});
+          });
+      }
+    }
+    console.log(trip);
+    feachdata();
+  }, []);
   useEffect(async () => {
     const result = await axios
-      .get(`https://waslni-api.herokuapp.com/driver/get_available`)
+      .get(`http://localhost:5000/driver/get_available`)
       .then((res) => {
         res.data.data.map((driver) => {
           avelDriv.push(driver);
@@ -41,7 +88,7 @@ export function WaslniProvider(Props) {
         console.log("jkhk");
         const res = await axios({
           method: "post",
-          url: "https://waslni-api.herokuapp.com/chat/get_driver_chat",
+          url: "http://localhost:5000/chat/get_driver_chat",
           data: data,
           headers: {
             Authorization: `Bearer ${token}`,
@@ -53,7 +100,7 @@ export function WaslniProvider(Props) {
         const data = {client: localStorage.getItem("number")};
         const res = await axios({
           method: "post",
-          url: "https://waslni-api.herokuapp.com/chat/get_client_chat",
+          url: "http://localhost:5000/chat/get_client_chat",
           data: data,
           headers: {
             Authorization: `Bearer ${token}`,
@@ -67,14 +114,10 @@ export function WaslniProvider(Props) {
     }
     fetchData();
   }, []);
+
   return (
     <WaslniContext.Provider
-      value={{
-        avelDriv,
-        currentlocation,
-        chat,
-        setChat,
-      }}
+      value={{trip, avelDriv, currentlocation, chat, setChat}}
     >
       {Props.children}
     </WaslniContext.Provider>

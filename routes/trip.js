@@ -3,8 +3,6 @@ const router = express.Router();
 const Trip = require('../models/Trip');
 const Driver = require('../models/Driver');
 const User = require('../models/User');
-const request = require('request');
-const http = require('https');
 const axios = require('axios');
 var ACCESS_TOKEN = "pk.eyJ1IjoidGFtYXJhamFtbW91bCIsImEiOiJja2NxMG1kNm8xMGtzMnNsbWExbGtpbm8zIn0.bgQ23ChS-u88zfS7dm6Fbw";
 
@@ -62,6 +60,7 @@ const anAsyncFunction = async item => {
         tr.to = a.data.features[0].place_name;
     tr.driver_number = item.driver_number;
     tr.user_number = item.user_number;
+    tr.date = item.date;
     trps.push(tr);
     return Promise.resolve('ok');
 }

@@ -35,7 +35,7 @@ function Profile() {
       console.log(data);
       if (authContext.isdriver) {
         axios
-          .post("https://waslni-api.herokuapp.com/driver/update_info", data)
+          .post("http://localhost:5000/driver/update_info", data)
           .then((res) => {
             console.log("uppppu", res);
             if (res.data.sucess == 1) {
@@ -47,7 +47,7 @@ function Profile() {
           });
       } else {
         axios
-          .post("https://waslni-api.herokuapp.com/user/update_info", data)
+          .post("http://localhost:5000/user/update_info", data)
           .then((res) => {
             console.log("uppppu", res);
             if (res.data.sucess == 1) {
@@ -133,7 +133,7 @@ function Profile() {
           <input
             type="submit"
             disabled={!formik.isValid}
-            value="sign up"
+            value="edit"
             className=" mr-2 mb-3 loginbtn"
           />
         </div>

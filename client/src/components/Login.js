@@ -36,7 +36,7 @@ function Login() {
       console.log(data);
 
       axios
-        .post("https://waslni-api.herokuapp.com/login/user", data)
+        .post("http://localhost:5000/login/user", data)
         .then((res) => {
           console.log("uppppu", res);
           if (res.data.sucess == 1) {

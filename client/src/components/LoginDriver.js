@@ -35,7 +35,7 @@ function Login() {
       console.log(data);
 
       axios
-        .post("https://waslni-api.herokuapp.com/login/driver", data)
+        .post("http://localhost:5000/login/driver", data)
         .then((res) => {
           console.log("uppppu", res);
 

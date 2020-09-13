@@ -44,7 +44,7 @@ function Signup() {
       console.log(data);
 
       axios
-        .post("https://waslni-api.herokuapp.com/register/driver", data)
+        .post("http://localhost:5000/register/driver", data)
         .then((res) => {
           console.log("uppppu", res);
           if (res.data.sucess == 1) {

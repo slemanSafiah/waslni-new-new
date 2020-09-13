@@ -1,66 +1,35 @@
 import React, {useEffect, useState, useContext} from "react";
-import axios from "axios";
 import {AuthContext} from "./../AuthContext";
 import {ToastProvider, useToasts} from "react-toast-notifications";
+import axios from "axios";
+import {WaslniContext} from "./../WaslniContext";
 
 export default function Mytrip() {
   const authContext = useContext(AuthContext);
   const [trip, setTrip] = useState([]);
-  const token = authContext.auth;
   const {addToast} = useToasts();
+  const token = authContext.auth;
 
-  useEffect(async () => {
-    if (authContext.isdriver) {
-      const result = await axios({
-        method: "post",
-        url: `https://waslni-api.herokuapp.com/trip/get_trips_by_driver`,
-        data: localStorage.getItem("number"),
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => {
-          console.log(res);
-          res.data.data.map((tri) => {
-            trip.push(tri);
-          });
-        })
-        .catch((err) => {
-          addToast("error try again", {appearance: "error"});
-        });
-    } else {
-      const result = await axios({
-        method: "post",
-        url: `https://waslni-api.herokuapp.com/trip/get_trips_by_user`,
-        data: localStorage.getItem("number"),
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => {
-          console.log(res);
-          res.data.data.map((tri) => {
-            trip.push(tri);
-          });
-        })
-        .catch((err) => {
-          addToast("error try again", {appearance: "error"});
-        });
-    }
+  const waslniContext = useContext(WaslniContext);
+  useEffect(() => {
+    waslniContext.trip.map((e) => setTrip((p) => [...p, e]));
   }, []);
   return (
-    <div className="container">
+    <div className="container ">
+      {trip.map((e) => console.log(e))}
+      <h1 className="text-center mt-3 mb-5 text-secondary">User Trip</h1>
       <div className="row">
-        {trip.map((trip) => {
-          return (
-            <div className="col-md-12">
-              {trip.sourse_lat}
-              {trip.sourse_long}
-              {trip.dest_lat}
-              {trip.dest_lat}
+        {trip.map((e) => (
+          <div className="col-md-12 mb-5">
+            <div className="col-md-4 bg-light rounded shadow">
+              <h2 className="text-center color">Trip</h2>
+              <h3 className="pt-2 pl-2">from: {e.from}</h3>
+              <h3 className="pt-2 pl-2">to: {e.to}</h3>
+              <h4 cclassName="pt-2 pl-2 pb-2">date :{e.date}</h4>
             </div>
-          );
-        })}
+            <div className="col-md-8"></div>
+          </div>
+        ))}
       </div>
     </div>
   );
