@@ -13,6 +13,7 @@ router.post("/", (req, res) => {
 
     let transporter = nodemailer.createTransport({
         service: "gmail",
+        tls: true,
         auth: {
             user: "slemansafiah45@gmail.com",
             pass: "5771125sss",
@@ -21,7 +22,7 @@ router.post("/", (req, res) => {
 
     let mailOptions = {
         from: ` ${req.body.email}`, // sender address
-        to: "waslni@gmail.com", // list of receivers
+        to: "waslniproject@gmail.com", // list of receivers
         subject: "E-mail message", // Subject line
         text: `Hello it is ${req.body.name}`, // plain text body
         html: output, // html body
@@ -32,7 +33,9 @@ router.post("/", (req, res) => {
             return console.log(error);
         }
         console.log("Message sent: %s", info.messageId);
-        res.render("contact", { msg: "Email has been sent" });
+        res.render("contact", {
+            msg: "Email has been sent"
+        });
     });
 });
 

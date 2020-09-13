@@ -33,6 +33,9 @@ const tripSchema = mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    dest: {
+        type: Number,
     }
 });
 

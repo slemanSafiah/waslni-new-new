@@ -46,6 +46,7 @@ io.on("connection", (socket) => {
                 source_long: data.source_long,
                 dest_lat: data.dest_lat,
                 dest_long: data.dest_long,
+                dest: data.dest,
                 date: Date.now()
               });
               try {
@@ -57,7 +58,8 @@ io.on("connection", (socket) => {
                   source_lat: data.source_lat,
                   source_long: data.source_long,
                   dest_lat: data.dest_lat,
-                  dest_long: data.dest_long
+                  dest_long: data.dest_long,
+                  dest: data.dest
                 });
                 console.log(`this is d_id : ${d_id} and driver number: ${data.driver_number}`);
               } catch (error) {}
