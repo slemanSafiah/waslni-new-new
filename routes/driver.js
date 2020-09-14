@@ -64,6 +64,23 @@ router.get('/get_available', async (req, res) => {
     }
 })
 
+router.get('/is_available', async (req, res) => {
+    try {
+        const driver = await Driver.find({
+            number: req.body.number
+        });
+        res.json({
+            sucess: 1,
+            data: driver[0].is_available
+        });
+    } catch (err) {
+        res.json({
+            sucess: 0,
+            message: err
+        });
+    }
+})
+
 router.post('/availabe', async (req, res) => {
     try {
         const driver = await Driver.find({

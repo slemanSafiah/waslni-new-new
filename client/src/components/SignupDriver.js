@@ -58,6 +58,8 @@ function Signup() {
             localStorage.setItem("gender", values.gender);
             authContext.setAuth(token);
             localStorage.setItem("isdriver", true);
+            localStorage.setItem("isavailabe", true);
+
             addToast("sign up Successfully", {appearance: "success"});
 
             history.push("/");

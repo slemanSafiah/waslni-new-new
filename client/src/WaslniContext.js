@@ -80,6 +80,17 @@ export function WaslniProvider(Props) {
         long: position.coords.longitude,
       });
     });
+    const interval = setInterval(() => {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position.coords.latitude, position.coords.longitude);
+        setCurrentlocation({
+          lat: position.coords.latitude,
+          long: position.coords.longitude,
+        });
+      });
+      console.log("This will run every second!");
+    }, 36000);
+    return () => clearInterval(interval);
   }, []);
   useEffect(() => {
     async function fetchData() {
@@ -117,7 +128,7 @@ export function WaslniProvider(Props) {
 
   return (
     <WaslniContext.Provider
-      value={{trip, avelDriv, currentlocation, chat, setChat}}
+      value={{trip, avelDriv, currentlocation, chat, setChat, setTrip}}
     >
       {Props.children}
     </WaslniContext.Provider>

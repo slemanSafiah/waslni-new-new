@@ -45,6 +45,7 @@ function Login() {
           localStorage.setItem("password", values.password);
           localStorage.setItem("isdriver", true);
           localStorage.setItem("name", res.data.name);
+          localStorage.setItem("isavailabe", true);
 
           authContext.setAuth(token);
           addToast("login Successfully", {appearance: "success"});

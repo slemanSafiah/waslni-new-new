@@ -17,11 +17,12 @@ body {
     top: 70%;
     position: fixed;
     left: 90%;
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     background: var(--mainWhite);
     color: var(--lightBlue);
+    z-index: 1;
 }
 
 .text {
@@ -190,6 +191,15 @@ body {
 
 .texthov:hover {
     padding-top: 20px;
+}
+
+.mytripimg {
+    width: 555px !important;
+    height: 600px;
+}
+
+.triptrip {
+    overflow-y: auto !important;
 }
 
 .marker {

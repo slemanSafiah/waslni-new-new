@@ -77,7 +77,9 @@ export default function Chat() {
         }
       >
         <h5 className="p-2 ">
-          <span className="text-dark text-wrap">{mes.message} </span>
+          <span className="text-dark " style={{wordWrap: "break-word"}}>
+            {mes.message}{" "}
+          </span>
           <span class="pt-2 pb-2">
             {" "}
             {mes.is_driver ? (
@@ -95,7 +97,10 @@ export default function Chat() {
       <form className="bg-light container rounded shadow-lg chat">
         <h1 className="color mt-3  text-center "> Messanger </h1>{" "}
         <div className="row bg-light">
-          <div className="col-md-12 render-chat mb-5 overflow-auto-y mm">
+          <div
+            className="col-md-12 render-chat mb-5 mm"
+            style={{overflowY: "auto", overflowX: "hidden"}}
+          >
             {renderChat()}{" "}
           </div>{" "}
         </div>{" "}

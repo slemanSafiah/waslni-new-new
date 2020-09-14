@@ -132,6 +132,7 @@ const Map = () => {
             },
           }).then((res) => console.log(res));
         }
+        alert("ok Waslni car is on its way to you");
       }
     }
     fetchdata();
