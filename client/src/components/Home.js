@@ -177,7 +177,9 @@ export default class Home extends Component {
                   can depend on. When you're ready, cash out instantly.
                 </p>
                 <ReactWOW animation="bounceInUp">
-                  <span className="mr-2 loginbtn1 m-5">Become A Driver</span>
+                  <Link to="/signupdriver">
+                    <span className="mr-2 loginbtn1 m-5">Become A Driver</span>
+                  </Link>
                 </ReactWOW>
               </div>
               <div className="col-md-6  mt-5"></div>
@@ -242,12 +244,12 @@ export default class Home extends Component {
             </div>
           </div>
         </section>
-        <section className="section4 ">
+        <section className="section4">
           <div className="container">
             <div className="row">
               <div className="col-md-5">
                 {" "}
-                <img src={map} />
+                <img src={map} className="section4img" />
               </div>
               <div className="col-md-7 ">
                 {" "}
@@ -259,7 +261,9 @@ export default class Home extends Component {
                   Ready to order?
                 </h1>
                 <ReactWOW animation="bounceInUp">
-                  <span className="float-right loginbtn1 m-5">Order now</span>
+                  <Link to="map">
+                    <span className="float-right loginbtn1 m-5">Order now</span>
+                  </Link>
                 </ReactWOW>
               </div>
             </div>{" "}

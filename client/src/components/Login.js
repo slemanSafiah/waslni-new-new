@@ -7,7 +7,6 @@ import {useFormik} from "formik";
 import {useHistory} from "react-router-dom";
 import {Link} from "react-router-dom";
 import ReactWOW from "react-wow";
-
 import {ToastProvider, useToasts} from "react-toast-notifications";
 
 function Login() {
@@ -15,7 +14,6 @@ function Login() {
   const {addToast} = useToasts();
   const authContext = useContext(AuthContext);
   const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
   const formik = useFormik({
     initialValues: {
       number: "",
@@ -45,6 +43,7 @@ function Login() {
             localStorage.setItem("number", values.number);
             localStorage.setItem("password", values.password);
             localStorage.setItem("name", res.data.name);
+            authContext.setIsavailabe(true);
 
             authContext.setAuth(token);
             addToast("login Successfully", {appearance: "success"});
@@ -60,54 +59,56 @@ function Login() {
     },
   });
   return (
-    <div className="container rounded login mt-5  shadow-lg  d-flex justify-content-center ">
-      <form onSubmit={formik.handleSubmit}>
-        <span className=" mt-4 d-flex justify-content-center ">
-          <i className="fas fa-lock fa-3x mt-3 text-white"> </i>{" "}
-        </span>{" "}
-        <h1 className="mt-3 text-white text-center mb-5"> Login </h1>{" "}
-        <div className="">
-          <input
-            type="number"
-            name="number"
-            id="number"
-            placeholder="Mobile "
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.number}
-            className="mb-5 shadow-sm  bg-light  form-control form-control-lg"
-          />{" "}
-          {formik.touched.number && formik.errors.number ? (
-            <h6 className="text-danger"> {formik.errors.number} </h6>
-          ) : null}{" "}
-        </div>{" "}
-        <div>
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            id="password"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-            className="mb-5 shadow-sm  bg-light form-control form-control-lg"
-          />{" "}
-          {formik.touched.password && formik.errors.password ? (
-            <div className="text-danger"> {formik.errors.password} </div>
-          ) : null}{" "}
-        </div>{" "}
-        <div className="mb-5">
-          <input
-            type="submit"
-            disabled={!formik.isValid}
-            value="sign in"
-            className=" mr-2 loginbtn1"
-          />
-          <Link to="/signup" className="text-white">
-            sign up{" "}
-          </Link>{" "}
-        </div>{" "}
-      </form>{" "}
+    <div className="loginback">
+      <div className="container rounded login shadow-lg  d-flex justify-content-center ">
+        <form onSubmit={formik.handleSubmit}>
+          <span className=" mt-4 d-flex justify-content-center ">
+            <i className="fas fa-lock fa-3x mt-3 text-white"> </i>{" "}
+          </span>{" "}
+          <h1 className="mt-3 text-white text-center mb-5"> Login </h1>{" "}
+          <div className="">
+            <input
+              type="number"
+              name="number"
+              id="number"
+              placeholder="Mobile "
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.number}
+              className="mb-5 shadow-sm  bg-light  form-control form-control-lg"
+            />{" "}
+            {formik.touched.number && formik.errors.number ? (
+              <h6 className="text-danger"> {formik.errors.number} </h6>
+            ) : null}{" "}
+          </div>{" "}
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              id="password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.password}
+              className="mb-5 shadow-sm  bg-light form-control form-control-lg"
+            />{" "}
+            {formik.touched.password && formik.errors.password ? (
+              <div className="text-danger"> {formik.errors.password} </div>
+            ) : null}{" "}
+          </div>{" "}
+          <div className="mb-5">
+            <input
+              type="submit"
+              disabled={!formik.isValid}
+              value="sign in"
+              className=" mr-2 loginbtn1"
+            />
+            <Link to="/signup" className="text-white">
+              sign up{" "}
+            </Link>{" "}
+          </div>{" "}
+        </form>{" "}
+      </div>
     </div>
   );
 }

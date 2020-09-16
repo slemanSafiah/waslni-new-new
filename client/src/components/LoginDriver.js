@@ -46,6 +46,7 @@ function Login() {
           localStorage.setItem("isdriver", true);
           localStorage.setItem("name", res.data.name);
           localStorage.setItem("isavailabe", true);
+          authContext.setIsavailabe(true);
 
           authContext.setAuth(token);
           addToast("login Successfully", {appearance: "success"});
@@ -60,54 +61,56 @@ function Login() {
     },
   });
   return (
-    <div className="container shadow-lg login mt-5 d-flex justify-content-center rounded">
-      <form onSubmit={formik.handleSubmit}>
-        <span className=" mt-4 d-flex justify-content-center ">
-          <i className="fas fa-lock fa-3x mt-3 text-white"> </i>{" "}
-        </span>{" "}
-        <h1 className="mt-3 text-white text-center mb-5"> Login Driver </h1>{" "}
-        <div>
-          <input
-            type="number"
-            name="number"
-            id="number"
-            placeholder="Mobile"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.number}
-            className="mb-5 shadow-sm  bg-light form-control form-control-lg"
-          />{" "}
-          {formik.touched.number && formik.errors.number ? (
-            <h6 className="text-danger"> {formik.errors.number} </h6>
-          ) : null}{" "}
-        </div>{" "}
-        <div>
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            id="password"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-            className="mb-5 shadow-sm  bg-light form-control form-control-lg"
-          />{" "}
-          {formik.touched.password && formik.errors.password ? (
-            <div className="text-danger"> {formik.errors.password} </div>
-          ) : null}{" "}
-        </div>{" "}
-        <div className="mb-5">
-          <input
-            type="submit"
-            disabled={!formik.isValid}
-            value="sign in"
-            className=" mr-2 loginbtn1"
-          />
-          <Link to="/signupdriver" className="text-white">
-            sign up{" "}
-          </Link>{" "}
-        </div>{" "}
-      </form>{" "}
+    <div className="loginback">
+      <div className="container shadow-lg login  d-flex justify-content-center rounded">
+        <form onSubmit={formik.handleSubmit}>
+          <span className=" mt-4 d-flex justify-content-center ">
+            <i className="fas fa-lock fa-3x mt-3 text-white"> </i>{" "}
+          </span>{" "}
+          <h1 className="mt-3 text-white text-center mb-5"> Login Driver </h1>{" "}
+          <div>
+            <input
+              type="number"
+              name="number"
+              id="number"
+              placeholder="Mobile"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.number}
+              className="mb-5 shadow-sm  bg-light form-control form-control-lg"
+            />{" "}
+            {formik.touched.number && formik.errors.number ? (
+              <h6 className="text-danger"> {formik.errors.number} </h6>
+            ) : null}{" "}
+          </div>{" "}
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              id="password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.password}
+              className="mb-5 shadow-sm  bg-light form-control form-control-lg"
+            />{" "}
+            {formik.touched.password && formik.errors.password ? (
+              <div className="text-danger"> {formik.errors.password} </div>
+            ) : null}{" "}
+          </div>{" "}
+          <div className="mb-5">
+            <input
+              type="submit"
+              disabled={!formik.isValid}
+              value="sign in"
+              className=" mr-2 loginbtn1"
+            />
+            <Link to="/signupdriver" className="text-white">
+              sign up{" "}
+            </Link>{" "}
+          </div>{" "}
+        </form>{" "}
+      </div>
     </div>
   );
 }

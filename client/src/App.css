@@ -9,14 +9,14 @@ body {
     min-height: 150vh;
     position: relative;
     margin: 0 !important;
-    padding-bottom: 500px;
+    padding-bottom: 302px;
     box-sizing: border-box;
 }
 
 .msg {
-    top: 70%;
+    top: 85%;
     position: fixed;
-    left: 90%;
+    left: 93%;
     width: 70px;
     height: 70px;
     border-radius: 50%;
@@ -83,6 +83,7 @@ body {
     background-image: url(./img/sec4back.png);
     background-repeat: no-repeat;
     background-size: cover;
+    margin-bottom: 60px !important;
 }
 
 .section4 img {
@@ -109,9 +110,16 @@ body {
 }
 
 .login {
-    background-color: var(--mainWhite);
-    height: fit-content;
-    width: 400px;
+    background-color: rgba(51, 119, 125, 0.6);
+    height: fit-content !important;
+    width: 400px !important;
+    top: 100px !important;
+    position: relative;
+}
+
+.loginback {
+    background-image: url(./img/head2.jpeg);
+    height: 900px;
 }
 
 .loginbtn {
@@ -163,9 +171,10 @@ body {
 .map-container {
     position: relative;
     top: 100px;
-    height: 900px;
+    height: 500px !important;
     width: 900px;
     padding-bottom: 200px;
+    margin-bottom: 200px !important;
 }
 
 .maptext {
@@ -174,11 +183,14 @@ body {
 }
 
 .chat {
-    position: absolute;
-    top: 100px;
+    position: fixed;
+    top: 80px;
     right: 100px;
-    width: 300px;
+    width: 300px !important;
     margin-bottom: 200px;
+    z-index: 10000 !important;
+    transition: 0.5s ease-out;
+
 }
 
 .mm {
@@ -195,11 +207,7 @@ body {
 
 .mytripimg {
     width: 555px !important;
-    height: 600px;
-}
-
-.triptrip {
-    overflow-y: auto !important;
+    height: 500px;
 }
 
 .marker {
@@ -210,10 +218,15 @@ body {
     border-radius: 50%;
     cursor: pointer;
 }
-
+.inputchat {
+    width: 180px !important;
+}
 @media only screen and (max-width: 600px) {
     .header h1 {
-        font-size: 30px;
+        font-size: 50px;
+    }
+    .headerimg {
+        height: 500px;
     }
     .section2 p {
         font-size: 20px;
@@ -248,16 +261,6 @@ body {
         padding-bottom: 700px;
         box-sizing: border-box;
     }
-    .msg {
-        top: 50%;
-        position: fixed;
-        left: 50%;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background: var(--mainWhite);
-        color: var(--lightBlue);
-    }
     .map-container {
         position: relative;
         top: 100px;
@@ -265,6 +268,34 @@ body {
         width: 90%;
         padding-bottom: 200px;
         margin-bottom: 200px;
+    }
+    .mytripimg {
+        width: 200px !important;
+        height: 300px;
+    }
+    .msg {
+        top: 70%;
+        position: fixed;
+        left: 70%;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: var(--mainWhite);
+        color: var(--lightBlue);
+        z-index: 1;
+    }
+    .chat {
+        position: absolute;
+        top: 100px;
+        width: 250px !important;
+        height: 250px !important;
+        margin-bottom: 200px;
+        z-index: 1 !important;
+        right: 0;
+    }
+    
+    .section4img {
+        width: 100% !important;
     }
 }
 

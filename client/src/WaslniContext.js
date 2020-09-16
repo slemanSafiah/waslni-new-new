@@ -1,23 +1,23 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import {AuthContext} from "./AuthContext";
+import { AuthContext } from "./AuthContext";
 import io from "socket.io-client";
-import {ToastProvider, useToasts} from "react-toast-notifications";
+import { ToastProvider, useToasts } from "react-toast-notifications";
 
 export const WaslniContext = React.createContext();
 
 export function WaslniProvider(Props) {
   const [avelDriv, setAvelDriv] = useState([]);
-  const [currentlocation, setCurrentlocation] = useState({lat: "", long: ""});
+  const [currentlocation, setCurrentlocation] = useState({ lat: "", long: "" });
   const authContext = useContext(AuthContext);
   const token = authContext.auth;
   const [chat, setChat] = useState([]);
   const [trip, setTrip] = useState([]);
 
-  const {addToast} = useToasts();
+  const { addToast } = useToasts();
   useEffect(() => {
     async function feachdata() {
-      const data = {number: localStorage.getItem("number")};
+      const data = { number: localStorage.getItem("number") };
       if (authContext.isdriver) {
         const res = await axios({
           method: "post",
@@ -34,7 +34,7 @@ export function WaslniProvider(Props) {
             });
           })
           .catch((err) => {
-            addToast("error try again", {appearance: "error"});
+            addToast("error try again", { appearance: "error" });
           });
       } else {
         const res = await axios({
@@ -52,7 +52,7 @@ export function WaslniProvider(Props) {
             });
           })
           .catch((err) => {
-            addToast("error try again", {appearance: "error"});
+            addToast("error try again", { appearance: "error" });
           });
       }
     }
@@ -95,7 +95,7 @@ export function WaslniProvider(Props) {
   useEffect(() => {
     async function fetchData() {
       if (localStorage.getItem("isdriver")) {
-        const data = {driver: localStorage.getItem("number")};
+        const data = { driver: localStorage.getItem("number") };
         console.log("jkhk");
         const res = await axios({
           method: "post",
@@ -108,7 +108,7 @@ export function WaslniProvider(Props) {
         res.data.messages.map((message) => chat.push(message));
         // chat.map((e) => console.log(e));
       } else {
-        const data = {client: localStorage.getItem("number")};
+        const data = { client: localStorage.getItem("number") };
         const res = await axios({
           method: "post",
           url: "http://localhost:5000/chat/get_client_chat",
@@ -117,7 +117,7 @@ export function WaslniProvider(Props) {
             Authorization: `Bearer ${token}`,
           },
         });
-
+        console.log(res, "uuuuuuuuuuuuuuuuuuuuuuuuuuuu")
         res.data.messages.map((message) => {
           chat.push(message);
         });
@@ -128,7 +128,7 @@ export function WaslniProvider(Props) {
 
   return (
     <WaslniContext.Provider
-      value={{trip, avelDriv, currentlocation, chat, setChat, setTrip}}
+      value={{ trip, avelDriv, currentlocation, chat, setChat, setTrip }}
     >
       {Props.children}
     </WaslniContext.Provider>

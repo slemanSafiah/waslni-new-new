@@ -71,96 +71,98 @@ function Signup() {
     },
   });
   return (
-    <div className="container shadow-lg mt-5 rounded login  d-flex justify-content-center">
-      <form onSubmit={formik.handleSubmit}>
-        <span className=" mt-4 d-flex justify-content-center ">
-          <i className="fas fa-lock fa-3x mt-3 text-white"> </i>{" "}
-        </span>{" "}
-        <h1 className="mt-3 text-white text-center mb-5"> Sign up </h1>{" "}
-        <div>
-          <input
-            type="string"
-            name="name"
-            placeholder="Name"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.name}
-            className="mb-5 shadow-sm mt-3  bg-light form-control form-control-lg"
-          />{" "}
-          {formik.touched.name && formik.errors.name ? (
-            <h6 className="text-danger"> {formik.errors.name} </h6>
-          ) : null}{" "}
-        </div>{" "}
-        <div>
-          <input
-            type="number"
-            name="number"
-            id="number"
-            placeholder="Mobile"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.number}
-            className="mb-5 shadow-sm  bg-light form-control form-control-lg"
-          />{" "}
-          {formik.touched.number && formik.errors.number ? (
-            <h6 className="text-danger"> {formik.errors.number} </h6>
-          ) : null}{" "}
-        </div>{" "}
-        <div>
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            id="password"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-            className="mb-5 shadow-sm  bg-light form-control form-control-lg"
-          />{" "}
-          {formik.touched.password && formik.errors.password ? (
-            <div className="text-danger"> {formik.errors.password} </div>
-          ) : null}{" "}
-        </div>{" "}
-        <div>
-          <input
-            type="string"
-            name="gender"
-            placeholder="Gender"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.gender}
-            className="mb-5 shadow-sm mt-3  bg-light form-control form-control-lg"
-          />{" "}
-          {formik.touched.gender && formik.errors.gender ? (
-            <h6 className="text-danger"> {formik.errors.gender} </h6>
-          ) : null}{" "}
-        </div>{" "}
-        <div>
-          <input
-            type="number"
-            name="age"
-            placeholder="Age"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.age}
-            className="mb-5 shadow-sm mt-3  bg-light form-control form-control-lg"
-          />{" "}
-          {formik.touched.age && formik.errors.age ? (
-            <h6 className="text-danger"> {formik.errors.age} </h6>
-          ) : null}{" "}
-        </div>{" "}
-        <div className="mb-5">
-          <input
-            type="submit"
-            disabled={!formik.isValid}
-            value="sign up"
-            className=" mr-2 loginbtn1"
-          />
-          <Link to="/login" className="text-white">
-            sign in
-          </Link>{" "}
-        </div>{" "}
-      </form>{" "}
+    <div className="loginback">
+      <div className="container shadow-lg rounded login  d-flex justify-content-center">
+        <form onSubmit={formik.handleSubmit}>
+          <span className=" mt-4 d-flex justify-content-center ">
+            <i className="fas fa-lock fa-3x mt-3 text-white"> </i>{" "}
+          </span>{" "}
+          <h1 className="mt-3 text-white text-center mb-5"> Sign up </h1>{" "}
+          <div>
+            <input
+              type="string"
+              name="name"
+              placeholder="Name"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.name}
+              className="mb-5 shadow-sm mt-3  bg-light form-control form-control-lg"
+            />{" "}
+            {formik.touched.name && formik.errors.name ? (
+              <h6 className="text-danger"> {formik.errors.name} </h6>
+            ) : null}{" "}
+          </div>{" "}
+          <div>
+            <input
+              type="number"
+              name="number"
+              id="number"
+              placeholder="Mobile"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.number}
+              className="mb-5 shadow-sm  bg-light form-control form-control-lg"
+            />{" "}
+            {formik.touched.number && formik.errors.number ? (
+              <h6 className="text-danger"> {formik.errors.number} </h6>
+            ) : null}{" "}
+          </div>{" "}
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              id="password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.password}
+              className="mb-5 shadow-sm  bg-light form-control form-control-lg"
+            />{" "}
+            {formik.touched.password && formik.errors.password ? (
+              <div className="text-danger"> {formik.errors.password} </div>
+            ) : null}{" "}
+          </div>{" "}
+          <div>
+            <input
+              type="string"
+              name="gender"
+              placeholder="Gender"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.gender}
+              className="mb-5 shadow-sm mt-3  bg-light form-control form-control-lg"
+            />{" "}
+            {formik.touched.gender && formik.errors.gender ? (
+              <h6 className="text-danger"> {formik.errors.gender} </h6>
+            ) : null}{" "}
+          </div>{" "}
+          <div>
+            <input
+              type="number"
+              name="age"
+              placeholder="Age"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.age}
+              className="mb-5 shadow-sm mt-3  bg-light form-control form-control-lg"
+            />{" "}
+            {formik.touched.age && formik.errors.age ? (
+              <h6 className="text-danger"> {formik.errors.age} </h6>
+            ) : null}{" "}
+          </div>{" "}
+          <div className="mb-5">
+            <input
+              type="submit"
+              disabled={!formik.isValid}
+              value="sign up"
+              className=" mr-2 loginbtn1"
+            />
+            <Link to="/login" className="text-white">
+              sign in
+            </Link>{" "}
+          </div>{" "}
+        </form>{" "}
+      </div>
     </div>
   );
 }

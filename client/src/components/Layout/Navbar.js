@@ -132,6 +132,7 @@ export default function Navbar() {
           })()}
           {(function () {
             if (localStorage.getItem("isdriver")) {
+              console.log(authContext.isavailabe);
               return (
                 <i
                   className={

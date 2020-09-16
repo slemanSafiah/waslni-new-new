@@ -14,24 +14,34 @@ router.post('/user', (req, res) => {
             if (!savesUser)
                 return res.status(421).json({ error: "invalid password or email" });
             else {
+                Driver.updateOne({
+                    number: req.body.number
+                }, {
+                        $set: {
+                            is_available: true
+                        }
+                    }).then((updatedDriver) => {
+                        if (updatedDriver) {
 
-                hash.compare(req.body.password, savesUser.password)
-                    .then((domatch) => {
-                        if (domatch) {
-                            const token = jwt.sign({ _id: savesUser._id }, JWT_SECRET);
-                            res.status(200).json({
-                                sucess: 1,
-                                token: token,
-                                name: savesUser.name
-                            });
+                            hash.compare(req.body.password, savesUser.password)
+                                .then((domatch) => {
+                                    if (domatch) {
+                                        const token = jwt.sign({ _id: savesUser._id }, JWT_SECRET);
+                                        res.status(200).json({
+                                            sucess: 1,
+                                            token: token,
+                                            name: savesUser.name
+                                        });
+                                    }
+                                    else {
+                                        res.status(422).json({
+                                            sucess: 0,
+                                            error: 'invalid password or email'
+                                        });
+                                    }
+                                });
                         }
-                        else {
-                            res.status(422).json({
-                                sucess: 0,
-                                error: 'invalid password or email'
-                            });
-                        }
-                    });
+                    })
             }
         })
         .catch((err) => console.log(err));

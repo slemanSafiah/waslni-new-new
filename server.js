@@ -35,58 +35,54 @@ io.on("connection", (socket) => {
   console.log("a user connected");
 
   socket.on("trip", (data) => {
+    console.log(data);
     DriverM.findOne({
       number: data.driver_number
     })
       .then((savesDriver) => {
         if (savesDriver) {
+          console.log("find user");
           UserM.findOne({
             number: data.user_number
           }).then((savesUser) => {
             if (savesUser) {
-              DriverM.updateOne({
-                number: data.driver_number
-              }, {
-                  $set: {
-                    is_available: false
-                  }
-                }).then((updatedDriver) => {
-                  const trip = new TripM({
-                    driver_number: data.driver_number,
-                    user_number: data.user_number,
+              console.log('123');
+              const trip = new TripM({
+                driver_number: data.driver_number,
+                user_number: data.user_number,
+                source_lat: data.source_lat,
+                source_long: data.source_long,
+                dest_lat: data.dest_lat,
+                dest_long: data.dest_long,
+                dest: data.dest,
+                date: Date.now()
+              });
+              try {
+                const savedTrip = trip.save();
+                savedTrip.then((saved) => console.log(saved));
+                let d_id = users.get(data.driver_number);
+                var trips = [data];
+                tr = {};
+                var a, b;
+                Promise.all(trips.map(item => {
+                  return anAsyncFunction(item);
+                })).then(() => {
+                  a = tr.from;
+                  b = tr.to;
+                }).then(() => {
+                  console.log(d_id, socket.id);
+                  io.to(d_id).emit('notification', {
+                    client: data.user_number,
                     source_lat: data.source_lat,
                     source_long: data.source_long,
                     dest_lat: data.dest_lat,
                     dest_long: data.dest_long,
                     dest: data.dest,
-                    date: Date.now()
+                    from: a,
+                    to: b
                   });
-                  try {
-                    const savedTrip = trip.save();
-                    savedTrip.then((saved) => console.log(saved));
-                    let d_id = users.get(data.driver_number);
-                    var trips = [data];
-                    tr = {};
-                    var a, b;
-                    Promise.all(trips.map(item => {
-                      return anAsyncFunction(item);
-                    })).then(() => {
-                      a = tr.from;
-                      b = tr.to;
-                    }).then(() => {
-                      io.to(d_id).emit('notification', {
-                        client: data.user_number,
-                        source_lat: data.source_lat,
-                        source_long: data.source_long,
-                        dest_lat: data.dest_lat,
-                        dest_long: data.dest_long,
-                        dest: data.dest,
-                        from: a,
-                        to: b
-                      });
-                    })
-                  } catch (error) { }
-                });
+                })
+              } catch (error) { }
             }
           });
         }
@@ -100,7 +96,7 @@ io.on("connection", (socket) => {
   })
 
   socket.on('message', (data) => {
-    console.log(data);
+    console.log("11111111111111111111111111111111", data);
     DriverM.findOne({
       number: data.driver
     })
@@ -115,21 +111,25 @@ io.on("connection", (socket) => {
                   driver: data.driver,
                   client: data.client,
                   message: data.message,
+                  is_driver: data.isdriver,
                   date: Date.now()
                 });
                 try {
-                  console.log(chat);
+                  console.log(data);
                   const savedChat = chat.save();
-                  savedChat.then((saved) => console.log(saved));
-                  console.log(data.isdriver)
-                  if (data.isdriver) {
-                    let u_id = users.get(data.client);
-                    socket.to(u_id).emit('message', data.message);
+                  savedChat.then((saved) => {
+                    if (data.isdriver) {
+                      let u_id = users.get(data.client);
+                      console.log(data, u_id);
 
-                  } else {
-                    let d_id = users.get(data.driver);
-                    socket.to(d_id).emit('message', data.message);
-                  }
+                      socket.to(u_id).emit('message', saved);
+
+                    } else {
+                      let d_id = users.get(data.driver);
+                      console.log('كم حرف', savedChat);
+                      socket.to(d_id).emit('message', saved);
+                    }
+                  });
                 } catch (error) {
                   console.log(error);
                 }

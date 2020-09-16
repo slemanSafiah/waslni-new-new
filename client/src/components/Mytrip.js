@@ -16,14 +16,15 @@ export default function Mytrip() {
   }, []);
   return (
     <div
-      className="container shadow rounded"
-      style={{height: "500px", overflowY: "auto"}}
+      className="container shadow rounded mt-5"
+      style={{marginBottom: "50px", height: "500px"}}
     >
       <div className="row ">
-        <div className="col-md-6 ">
+        <div className="col-md-6 " style={{height: "500px", overflowY: "auto"}}>
           {" "}
-          <h1 className="text-center mt-3 mb-5 text-secondary">User Trip</h1>
-          <div className="triptrip">
+          <h1 className="text-center mt-3 mb-5 color">User Trip</h1>
+          <hr />
+          <div className="triptrip ">
             {trip.map((e) => (
               <div className="w-50 mb-5 mr-5 bg-light rounded shadow texthov tripdiv ml-3">
                 <h3 className="text-center color mt-3">Trip</h3>
@@ -69,7 +70,9 @@ export default function Mytrip() {
             ))}
           </div>
         </div>
-        <div className="col-md-6"></div>
+        <div className="col-md-6">
+          <img src={img} className="mytripimg rounded" />
+        </div>
       </div>
     </div>
   );

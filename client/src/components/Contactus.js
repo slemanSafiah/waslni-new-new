@@ -57,15 +57,15 @@ export default function Getintouch() {
           <ReactWOW animation="fadeInLeft">
             <div className=" ml-3 mb-2">
               <h5>address</h5>
-              <p> syria-homs</p>
+              <p> Syria-Homs</p>
             </div>
             <div className="ml-3 mb-2">
               <h5>email</h5>
-              <p> info@irtaki.com</p>
+              <p> info@waslni.com</p>
             </div>
             <div className="ml-3 mb-5">
               <h5>mobile</h5>
-              <p> +963-0930737281</p>
+              <p> +963-0951516896</p>
             </div>
           </ReactWOW>
           <hr />

@@ -55,10 +55,10 @@ router.post('/get_driver_chat', (req, res) => {
 
 router.post('/get_client_chat', (req, res) => {
     try {
-        Driver.findOne({ number: req.client })
+        User.findOne({ number: req.body.client })
             .then((savesDriver) => {
                 if (savesDriver) {
-                    const messages = Chat.find({ client: req.client }).then(messages => {
+                    const messages = Chat.find({ client: req.body.client }).then(messages => {
                         res.json({ messages })
                     })
 

@@ -7,6 +7,7 @@ import {HashRouter as Router} from "react-router-dom";
 import {WaslniProvider} from "./WaslniContext";
 import {AuthProvider} from "./AuthContext";
 import {ToastProvider, useToasts} from "react-toast-notifications";
+import "bootstrap/dist/css/bootstrap.css";
 
 ReactDOM.render(
   <AuthProvider>
