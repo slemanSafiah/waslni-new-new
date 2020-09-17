@@ -1,26 +1,78 @@
-import React, {useEffect, useState, useContext} from "react";
-import {AuthContext} from "./../AuthContext";
-import {ToastProvider, useToasts} from "react-toast-notifications";
+import React, { useEffect, useState, useContext } from "react";
+import { AuthContext } from "./../AuthContext";
+import { ToastProvider, useToasts } from "react-toast-notifications";
 import axios from "axios";
-import {WaslniContext} from "./../WaslniContext";
+import { WaslniContext } from "./../WaslniContext";
 import img from "./../img/head3.jpg";
 export default function Mytrip() {
   const authContext = useContext(AuthContext);
   const [trip, setTrip] = useState([]);
-  const {addToast} = useToasts();
+  const { addToast } = useToasts();
   const token = authContext.auth;
 
-  const waslniContext = useContext(WaslniContext);
+
+
   useEffect(() => {
-    waslniContext.trip.map((e) => setTrip((p) => [...p, e]));
+    async function feachdata() {
+      const data = { number: localStorage.getItem("number") };
+      if (authContext.isdriver) {
+        const res = await axios({
+          method: "post",
+          url: `http://localhost:5000/trip/get_trips_by_driver`,
+          data,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((res) => {
+            console.log("rew", res);
+            res.data.data.map((tri) => {
+              trip.push(tri);
+            });
+          })
+          .catch((err) => {
+            addToast("error try again", { appearance: "error" });
+          });
+      } else {
+        const res = await axios({
+          method: "post",
+          url: `http://localhost:5000/trip/get_trips_by_user`,
+          data,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((res) => {
+            console.log(res);
+            res.data.data.map((tri) => {
+              trip.push(tri);
+            });
+          })
+          .catch((err) => {
+            addToast("error try again", { appearance: "error" });
+          });
+      }
+    }
+    console.log(trip);
+    feachdata();
   }, []);
+
+
+
+
+
+
+
+
+
+
   return (
     <div
       className="container shadow rounded mt-5"
-      style={{marginBottom: "50px", height: "500px"}}
+      style={{ marginBottom: "50px", height: "500px" }}
     >
       <div className="row ">
-        <div className="col-md-6 " style={{height: "500px", overflowY: "auto"}}>
+        <div className="col-md-6 " style={{ height: "500px", overflowY: "auto" }}>
           {" "}
           <h1 className="text-center mt-3 mb-5 color">User Trip</h1>
           <hr />
@@ -36,7 +88,7 @@ export default function Mytrip() {
                   from:
                   <span
                     className="text-darken-3 ml-2"
-                    style={{fontSize: "10px"}}
+                    style={{ fontSize: "10px" }}
                   >
                     {e.from}
                   </span>
@@ -49,7 +101,7 @@ export default function Mytrip() {
                   to:{" "}
                   <span
                     className="text-darken-3 ml-2"
-                    style={{fontSize: "10px"}}
+                    style={{ fontSize: "10px" }}
                   >
                     {e.to}
                   </span>
@@ -61,7 +113,7 @@ export default function Mytrip() {
                   date :
                   <span
                     className="text-darken-3 ml-2"
-                    style={{fontSize: "10px"}}
+                    style={{ fontSize: "10px" }}
                   >
                     {e.date}
                   </span>
